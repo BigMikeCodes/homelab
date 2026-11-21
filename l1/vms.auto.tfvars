@@ -11,15 +11,27 @@ images = {
   }
 }
 
-# VMs. To add one, copy a block, give it a new key and `tofu apply`.
-# Every attribute except `image` is optional; see variables.tf for defaults.
 vms = {
-  test-vm = {
+  
+  node-1 = {
     image        = "debian-13"
     cores        = 2
     memory_mb    = 2048
     disk_size_gb = 20
-    tags         = ["test"]
+    tags         = ["node"]
+
+    username = "admin"
+    ssh_public_keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEXKOIH1AAl9nNcp1uPek9ubS+sXhYwmIB2Hgfma+aL7",
+    ]
+  }
+  
+  node-2 = {
+    image        = "debian-13"
+    cores        = 2
+    memory_mb    = 2048
+    disk_size_gb = 20
+    tags         = ["node"]
 
     username = "admin"
     ssh_public_keys = [
@@ -27,16 +39,17 @@ vms = {
     ]
   }
 
-  # example-static = {
-  #   vm_id        = 200
-  #   image        = "ubuntu-24-04"
-  #   cores        = 4
-  #   memory_mb    = 4096
-  #   disk_size_gb = 40
-  #   ipv4_address = "192.168.1.50/24"
-  #   ipv4_gateway = "192.168.1.1"
-  #   tags         = ["app"]
-  #   username     = "deploy"
-  #   ssh_public_keys = ["ssh-ed25519 AAAA... you@workstation"]
-  # }
+  node-3 = {
+    image        = "debian-13"
+    cores        = 2
+    memory_mb    = 2048
+    disk_size_gb = 20
+    tags         = ["node"]
+
+    username = "admin"
+    ssh_public_keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEXKOIH1AAl9nNcp1uPek9ubS+sXhYwmIB2Hgfma+aL7",
+    ]
+  }
+  
 }
