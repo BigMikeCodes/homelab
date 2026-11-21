@@ -6,6 +6,10 @@ output "name" {
   value = proxmox_virtual_environment_vm.this.name
 }
 
+output "username" {
+  value = var.username
+}
+
 output "ipv4_addresses" {
   description = "Non-loopback IPv4 addresses reported by the guest agent."
   value = [

@@ -14,7 +14,7 @@ l1/
 ├── vms.auto.tfvars          # Images and VMs you want (committed)
 ├── terraform.tfvars.example # Connection details and secrets (copy to terraform.tfvars, git-ignored)
 ├── cloud-init/
-│   └── vendor-data.yaml     # Installs qemu-guest-agent on every VM
+│   └── vendor-data.yaml     # Shared packages (incl. qemu-guest-agent) and SSH hardening
 └── modules/vm/              # Reusable VM module
 ```
 
@@ -63,7 +63,8 @@ The first apply downloads the cloud images to the node, which can take a few min
 that, each VM boots, cloud-init installs the guest agent, and the VM's IP appears in
 `tofu output vms`.
 
-Log in with `ssh <default_username>@<ip>`, using one of the keys in `ssh_public_keys`.
+Log in with `ssh <user>@<ip>` (both shown in `tofu output vms`). Each VM can set its own
+`username` and `ssh_public_keys`; otherwise `default_username` and `ssh_public_keys` are used.
 
 ## Adding a VM
 

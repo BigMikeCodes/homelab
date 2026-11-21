@@ -51,14 +51,16 @@ variable "default_bridge" {
 
 # --- Defaults applied to every VM -------------------------------------------
 
+# Per-VM `username` / `ssh_public_keys` in `vms` override these.
+
 variable "default_username" {
-  description = "Default user created by cloud-init on every VM."
+  description = "User created by cloud-init on VMs that don't set `username`."
   type        = string
   default     = "admin"
 }
 
 variable "ssh_public_keys" {
-  description = "SSH public keys authorised for the default user on every VM."
+  description = "SSH public keys for VMs that don't set `ssh_public_keys`."
   type        = list(string)
   default     = []
 }
@@ -85,22 +87,23 @@ variable "images" {
 variable "vms" {
   description = "VMs to create. The map key is used as the VM name unless `name` is set."
   type = map(object({
-    name         = optional(string)
-    vm_id        = optional(number)
-    description  = optional(string, "Managed by OpenTofu")
-    tags         = optional(list(string), [])
-    image        = string
-    cores        = optional(number, 2)
-    memory_mb    = optional(number, 2048)
-    disk_size_gb = optional(number, 20)
-    datastore_id = optional(string)
-    bridge       = optional(string)
-    vlan_id      = optional(number)
-    ipv4_address = optional(string, "dhcp") # "dhcp" or CIDR, e.g. "192.168.1.50/24"
-    ipv4_gateway = optional(string)
-    username     = optional(string)
-    on_boot      = optional(bool, true)
-    started      = optional(bool, true)
+    name            = optional(string)
+    vm_id           = optional(number)
+    description     = optional(string, "Managed by OpenTofu")
+    tags            = optional(list(string), [])
+    image           = string
+    cores           = optional(number, 2)
+    memory_mb       = optional(number, 2048)
+    disk_size_gb    = optional(number, 20)
+    datastore_id    = optional(string)
+    bridge          = optional(string)
+    vlan_id         = optional(number)
+    ipv4_address    = optional(string, "dhcp") # "dhcp" or CIDR, e.g. "192.168.1.50/24"
+    ipv4_gateway    = optional(string)
+    username        = optional(string)       # falls back to default_username
+    ssh_public_keys = optional(list(string)) # falls back to ssh_public_keys
+    on_boot         = optional(bool, true)
+    started         = optional(bool, true)
   }))
   default = {}
 

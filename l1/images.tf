@@ -17,8 +17,9 @@ resource "proxmox_download_file" "image" {
   overwrite = false
 }
 
-# Shared cloud-init vendor-data: installs and starts the QEMU guest agent so
-# Proxmox (and OpenTofu outputs) can see each VM's IP address.
+# Shared cloud-init vendor-data: common packages (incl. the QEMU guest agent, so
+# Proxmox and OpenTofu outputs can see each VM's IP) and SSH hardening.
+# Users/keys are per VM, via `user_account` in the vm module.
 resource "proxmox_virtual_environment_file" "vendor_data" {
   node_name    = var.node_name
   datastore_id = var.image_datastore_id

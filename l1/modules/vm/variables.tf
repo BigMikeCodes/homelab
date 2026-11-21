@@ -82,12 +82,23 @@ variable "dns_servers" {
 }
 
 variable "username" {
-  type = string
+  description = "Default user created by cloud-init (replaces the image's stock user)."
+  type        = string
+
+  validation {
+    condition     = can(regex("^[a-z_][a-z0-9_-]{0,31}$", var.username)) && var.username != "root"
+    error_message = "username must be a valid Linux user name (lowercase, max 32 chars) and not root."
+  }
 }
 
 variable "ssh_public_keys" {
-  type    = list(string)
-  default = []
+  description = "SSH public keys authorised for the default user."
+  type        = list(string)
+
+  validation {
+    condition     = length(var.ssh_public_keys) > 0
+    error_message = "At least one SSH public key is required, otherwise the VM is unreachable."
+  }
 }
 
 variable "vendor_data_file_id" {

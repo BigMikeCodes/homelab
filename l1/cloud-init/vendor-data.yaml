@@ -1,6 +1,20 @@
 #cloud-config
 package_update: true
+package_upgrade: true
 packages:
+  - tmux
+  - curl
+  - ca-certificates
   - qemu-guest-agent
+  - sudo
+
+# Users and SSH keys are NOT set here: they come from each VM's `username` /
+# `ssh_public_keys` in OpenTofu (Proxmox user-data overrides vendor-data `users`).
+
+# SSH
+# Disable: passwords login, root login
+ssh_pwauth: false
+disable_root: true
+
 runcmd:
   - systemctl enable --now qemu-guest-agent

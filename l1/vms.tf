@@ -21,7 +21,7 @@ module "vm" {
   dns_servers  = var.dns_servers
 
   username            = coalesce(each.value.username, var.default_username)
-  ssh_public_keys     = var.ssh_public_keys
+  ssh_public_keys     = each.value.ssh_public_keys != null ? each.value.ssh_public_keys : var.ssh_public_keys
   vendor_data_file_id = proxmox_virtual_environment_file.vendor_data.id
 
   on_boot = each.value.on_boot

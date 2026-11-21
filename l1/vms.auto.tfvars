@@ -20,6 +20,11 @@ vms = {
     memory_mb    = 2048
     disk_size_gb = 20
     tags         = ["test"]
+
+    username = "admin"
+    ssh_public_keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEXKOIH1AAl9nNcp1uPek9ubS+sXhYwmIB2Hgfma+aL7",
+    ]
   }
 
   # example-static = {
@@ -31,5 +36,7 @@ vms = {
   #   ipv4_address = "192.168.1.50/24"
   #   ipv4_gateway = "192.168.1.1"
   #   tags         = ["app"]
+  #   username     = "deploy"
+  #   ssh_public_keys = ["ssh-ed25519 AAAA... you@workstation"]
   # }
 }

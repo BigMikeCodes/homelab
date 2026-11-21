@@ -4,6 +4,7 @@ output "vms" {
     for k, vm in module.vm : k => {
       id   = vm.id
       name = vm.name
+      user = vm.username
       ipv4 = vm.ipv4_addresses
     }
   }
