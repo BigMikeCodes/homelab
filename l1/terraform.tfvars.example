@@ -1,0 +1,19 @@
+# Copy to terraform.tfvars (git-ignored) and fill in.
+
+proxmox_endpoint  = "https://192.168.1.10:8006/"
+proxmox_api_token = "tofu@pve!tofu=00000000-0000-0000-0000-000000000000"
+
+# Must match the node's hostname (Datacenter view in the web UI).
+node_name = "pve"
+
+ssh_public_keys = [
+  "ssh-ed25519 AAAA... you@workstation",
+]
+
+# Optional overrides
+# proxmox_insecure   = true
+# vm_datastore_id    = "local-lvm"
+# image_datastore_id = "local"
+# default_bridge     = "vmbr0"
+# default_username   = "admin"
+# dns_servers        = ["1.1.1.1", "9.9.9.9"]
